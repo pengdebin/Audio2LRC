@@ -1,0 +1,8 @@
+openai-whisper
+whisperx
+demucs
+pydub
+ffmpeg-python
+# Optional: for faster installs and models
+torch
+tqdm
