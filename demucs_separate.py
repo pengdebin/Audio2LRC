@@ -2,7 +2,7 @@ import subprocess
 from pathlib import Path
 import shutil
 
-def extract_vocals(input_path: Path, out_dir: Path = "temp", model: str = "htdemucs", device = "cpu") -> Path:
+def extract_vocals(input_path: Path, out_dir: Path = "temp", device = "cpu") -> Path:
     """Use demucs CLI to extract the vocals stem. Returns path to vocals wav file.
 
     Requires `demucs` to be installed (pip install demucs).
@@ -12,7 +12,7 @@ def extract_vocals(input_path: Path, out_dir: Path = "temp", model: str = "htdem
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # Call demucs: `demucs --two-stems vocals -o out_dir input_path`
-    cmd = ["demucs", "--mp3", "--two-stems", "vocals", "-d", device, "-o", str(out_dir), str(input_path)]
+    cmd = ["demucs", "--two-stems", "vocals", "-d", device, "-o", str(out_dir), str(input_path)]
     try:
         subprocess.run(cmd, check=True)
     except FileNotFoundError:

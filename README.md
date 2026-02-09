@@ -9,7 +9,7 @@ Audio2LRC是一个从音频中提取人声并生成LRC的小工具。主要流�
 ## 功能 ✅
 - 可选人声分离（`demucs`）以提取 `vocals.wav` 文件（默认输出目录为 `temp/`）
 - 转录（`openai-whisper`）并可选使用 `whisperx` 对齐以减少时间漂移
-- 生成按句时间戳的 `.lrc` 文件（英文，每句一行）
+- 生成按句时间戳的 `.lrc` 文件（每句一行）
 - 输出示例：
   `[00:12.34]This is an example.`
 

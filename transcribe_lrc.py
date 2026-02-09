@@ -1,7 +1,5 @@
 import argparse
 import os
-import torch
-import whisper
 
 from pathlib import Path
 from lrc_generator import write_lrc_file
@@ -30,16 +28,6 @@ def main():
     if args.sep != "demucs":
         print(f"Unsupported separation method: {args.sep}.")
 
-    print(f"Loading Whisper model '{args.model}' (this may take a while)...")
-
-    model = whisper.load_model(args.model)
-
-    # decide device
-    if torch is not None and torch.cuda.is_available():
-        device = "cuda"
-    else:
-        device = "cpu"
-
     src = Path(args.input)
     if not src.exists():
         print(f"Input directory not found: {src}")
@@ -66,6 +54,30 @@ def main():
         return
 
     print(f"Found {len(files)} files in {src}. Starting processing...")
+
+    # Import heavy libs and load model now that we know there are files to process.
+    print(f"Loading Whisper model '{args.model}' (this may take a while)...")
+    try:
+        import whisper
+    except Exception as e:
+        print("Error: 'whisper' is not available. Install with: pip install openai-whisper")
+        print(f"Detailed error: {e}")
+        return
+
+    try:
+        import torch
+    except Exception:
+        torch = None
+        print("Warning: 'torch' not available; running on CPU only (if Whisper supports it).")
+
+    model = whisper.load_model(args.model)
+
+    # decide device
+    if torch is not None and torch.cuda.is_available():
+        device = "cuda"
+    else:
+        device = "cpu"
+
     for f in files:
         try:
             target_audio = f
@@ -74,7 +86,7 @@ def main():
             if args.sep == "demucs":
                 try:
                     print(f"Extracting vocals for {f} ...")
-                    vocals = extract_vocals(f)
+                    vocals = extract_vocals(f, device=device)
                     print(f"Extracted vocals to {vocals}")
                     target_audio = vocals
                 except Exception as e:
