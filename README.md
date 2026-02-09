@@ -44,7 +44,6 @@ python transcribe_lrc.py --input input --ext .mp3,.wav
 - `--aligner`：对齐器（默认 `whisperx`）
 - `--model`：Whisper 模型（`tiny|base|small|medium|large|large-v2|large-v3`，默认 `large-v3`）
 - `--output`：输出目录（默认 `output`），生成的 `.lrc` 将写在该目录下
-- `--overwrite`：覆盖已存在文件（否则会跳过）
 
 ## 输出位置与中间产物 🗂️
 - 分离后的人声音频默认放在 `temp/<model>/<basename>/vocals.*`。

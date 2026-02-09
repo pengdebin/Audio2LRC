@@ -8,10 +8,9 @@ from whisperx_align import transcribe_and_align_with_whisperx
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Transcribe an English MP3 (or a directory) and generate bilingual LRC files (EN + ZH)")
+    parser = argparse.ArgumentParser(description="Transcribe an MP3 (or a directory) and generate bilingual LRC files")
     parser.add_argument("--input", "-i", default="input", help="Directory containing audio files to process")
     parser.add_argument("--ext", default=".mp3", help="Comma-separated audio file extensions to find in batch mode (e.g. .mp3,.wav)")
-    parser.add_argument("--overwrite", action="store_true", help="Overwrite existing .lrc files")
     parser.add_argument("--model", default="large-v3", help="Whisper model to use (tiny, base, small, medium, large, large-v2, large-v3)")
     parser.add_argument("--sep", default="demucs", help="Source separation method to extract vocals before alignment")
     parser.add_argument("--aligner", default="whisperx", help="Alignment tool to use after transcription")

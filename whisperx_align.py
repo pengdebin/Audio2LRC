@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import List, Tuple
 
 
-def transcribe_and_align_with_whisperx(audio_path: Path, model, device: str = "cpu", lang: str = "en") -> List[Tuple[float, str]]:
+def transcribe_and_align_with_whisperx(audio_path: Path, model, device: str = "cpu") -> List[Tuple[float, str]]:
     """Transcribe with Whisper then align with WhisperX; return list of (timestamp_seconds, text) by segment.
 
     Requires `whisperx` to be installed.
